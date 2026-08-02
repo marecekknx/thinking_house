@@ -1,0 +1,11 @@
+.DS_Store
+*.tmp
+*.bak
+*.log
+
+# Local exports and generated files
+outputs/
+
+# Vendor/app caches
+.cache/
+.tmp/
