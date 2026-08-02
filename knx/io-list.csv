@@ -1,0 +1,8 @@
+id,type,device,channel,function,location,status,notes
+OUT-SW-001,switch,MDT AKS-2016.03,1,Non-DALI circuit TBD,TBD,placeholder,
+OUT-BLD-001,blind,MDT JAL-0810.02,1,External blind 1,TBD,placeholder,
+OUT-BLD-002,blind,MDT JAL-0810.02,2,External blind 2,TBD,placeholder,
+OUT-BLD-003,blind,MDT JAL-0810.02,3,External blind 3,TBD,placeholder,
+OUT-BLD-004,blind,MDT JAL-0810.02,4,External blind 4,TBD,placeholder,
+OUT-HEAT-001,heating,MDT AKS-1216.03,1,Heating contactor zone 1,TBD,placeholder,
+IN-BIN-001,binary,MDT BE-16000.02,1,Door/window contact TBD,TBD,placeholder,
