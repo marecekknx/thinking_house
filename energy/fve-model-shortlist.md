@@ -7,15 +7,96 @@ This shortlist is for a 150 m2 passive-standard bungalow with:
 - KNX as the local reliable control layer
 - Home Assistant as EMS / visualization / AI layer
 - PV, battery and future EV charging
+- minimum PV size around 10 kWp
 - spot-price optimization
 - 24 h backup for critical loads, excluding electric floor heating
 - preference for Pylontech if the ecosystem supports it well
 
 ## Preferred Victron Direction
 
-### Recommended Core Model
+### Important Correction
 
-Victron MultiPlus-II 48/5000/70-50
+PV array size and MultiPlus size are not the same thing.
+
+The MultiPlus-II is primarily the battery inverter/charger and backup power component. A 10 kWp PV array does not automatically require a 15 kVA MultiPlus. It depends on:
+
+- whether PV is DC-coupled through Victron MPPT chargers
+- whether PV is AC-coupled through a PV inverter
+- whether the PV inverter is connected on the backed-up AC output
+- whether PV must keep working during grid outage
+- whether the house backup should be single-phase or three-phase
+- the real backed-up load, not just PV panel size
+
+### Recommended Victron Architecture For 10 kWp PV
+
+For this house, my preferred Victron architecture is:
+
+```text
+3x Victron MultiPlus-II 48/5000/70-50
+1x Cerbo GX Mk2
+Pylontech US5000 / US5000B battery bank
+10 kWp PV via Victron MPPT chargers or a properly designed AC-coupled PV inverter
+critical-load or selected-house-load backup board
+```
+
+This gives a balanced three-phase Victron system and avoids concentrating the backup system on one phase.
+
+### Why 3x 48/5000 Instead Of 1x 48/15000
+
+For a European three-phase house, 3x MultiPlus-II 48/5000 is usually a more natural architecture than 1x MultiPlus-II 48/15000:
+
+- balanced three-phase operation
+- cleaner phase distribution
+- better fit with a three-phase house supply
+- avoids putting all backed-up loads on one strong phase
+- similar total inverter power class, but distributed across phases
+- lower per-unit DC current stress
+- easier staged thinking around critical loads
+
+### When 1x MultiPlus-II 48/15000/200-100 Makes Sense
+
+The MultiPlus-II 48/15000/200-100 becomes interesting if:
+
+- the backup board is intentionally single-phase
+- many backed-up loads should run from one strong phase
+- a large AC-coupled PV inverter must be placed on the backed-up AC output
+- the battery bank is sized large enough for the current demand
+- the installer confirms grid-code and distribution-board implications
+
+It is not wrong, but it is a heavier and more demanding design.
+
+According to Victron's technical specifications, the 48/15000 class provides 15 kVA / 12 kW continuous power at 25 C, 10 kW at 40 C, 27 kW peak power, 200 A charger current and 55 W zero-load power. That is a serious device and must be matched with a serious battery bank and DC installation.
+
+### Battery Sizing Implication
+
+The 48/15000 option should not be combined with a small Pylontech bank.
+
+For this project, if using 48/15000, treat approximately 5x Pylontech US5000-class modules as the practical starting point, and validate the exact number against:
+
+- Pylontech datasheet current limits
+- Victron Pylontech minimum sizing guidance
+- expected backup load
+- maximum charge current
+- maximum discharge current
+- desired battery lifetime
+
+If the initial battery target is only 15-20 kWh, the 48/15000 is likely oversized unless backed-up peak power is a real requirement.
+
+### Smaller Critical-Load Backup Variant
+
+If only selected basic circuits need backup, this lower-cost option remains valid:
+
+```text
+1x MultiPlus-II 48/5000/70-50
+1x Cerbo GX Mk2
+Pylontech battery bank
+critical-load backup board
+10 kWp PV not necessarily all on backed-up output
+```
+
+This variant can still coexist with a 10 kWp PV array. It just means the full PV array may not be available during a grid outage unless the PV topology is designed for it.
+
+### Use With
 
 Use with:
 
@@ -25,9 +106,9 @@ Use with:
 - Victron MPPT chargers or a properly designed AC-coupled PV inverter architecture
 - dedicated backed-up critical-load sub-distribution board
 
-### Why This Model
+### Why MultiPlus-II 48/5000 Is Still Relevant
 
-The MultiPlus-II 48/5000/70-50 is the best balanced Victron unit for this project:
+The MultiPlus-II 48/5000/70-50 is still the best balanced Victron building block for this project:
 
 - officially documented by Victron as compatible with Pylontech through GX / Venus OS architecture
 - strong local integration through GX, MQTT and Modbus TCP
@@ -36,33 +117,7 @@ The MultiPlus-II 48/5000/70-50 is the best balanced Victron unit for this projec
 - more reasonable battery-current requirements than larger 8 kVA / 10 kVA / 15 kVA units
 - strong fit for future Home Assistant / EMS / AI control
 
-### Preferred Starting Architecture
-
-Start with one of these two approaches:
-
-#### Conservative / Critical-Load Backup
-
-```text
-1x MultiPlus-II 48/5000/70-50
-1x Cerbo GX Mk2
-Pylontech battery bank
-critical-load backup board
-```
-
-This is the most cost-rational starting point if only selected circuits need backup.
-
-#### Full Three-Phase Victron ESS
-
-```text
-3x MultiPlus-II 48/5000/70-50
-1x Cerbo GX Mk2
-larger Pylontech battery bank
-three-phase ESS / backup design
-```
-
-This is more powerful and elegant, but significantly more expensive and requires more battery capacity.
-
-### Why Not Start With MultiPlus-II 48/8000
+### Why Not Default To MultiPlus-II 48/8000
 
 The 48/8000 is technically attractive, but for this project it is not my first choice:
 
@@ -72,7 +127,7 @@ The 48/8000 is technically attractive, but for this project it is not my first c
 - higher battery current requirements
 - unnecessary if the first goal is critical-load backup, not whole-house backup
 
-Use 48/8000 only if the backed-up load calculation proves that 48/5000 is too small.
+Use 48/8000 only if the backed-up load calculation proves that 48/5000 is too small but 48/15000 is excessive.
 
 ## Preferred Deye / Sunsynk Direction
 
@@ -138,15 +193,26 @@ Before purchase, require written answers for:
 
 ### If Choosing Victron
 
-Choose:
+For a 10 kWp PV project, choose one of these two Victron directions:
+
+Preferred if budget allows:
 
 ```text
-Victron MultiPlus-II 48/5000/70-50
+3x Victron MultiPlus-II 48/5000/70-50
 Cerbo GX Mk2
 Pylontech US5000 / US5000B battery bank
 ```
 
-Design the system so it can be expanded later to three-phase if needed.
+Possible but more demanding:
+
+```text
+1x Victron MultiPlus-II 48/15000/200-100
+Cerbo GX Mk2
+larger Pylontech US5000 / US5000B battery bank
+single-phase high-power backup design
+```
+
+The 48/15000 option should be selected because of backed-up load and topology requirements, not merely because the PV array is 10 kWp.
 
 ### If Choosing Deye / Sunsynk
 
@@ -163,8 +229,9 @@ Accept the Deye/Sunsynk route only if the supplier proves local integration and 
 
 My current project-specific preference:
 
-1. Victron MultiPlus-II 48/5000/70-50 + Pylontech, if budget and installer quality are acceptable
+1. 3x Victron MultiPlus-II 48/5000/70-50 + Pylontech, if budget and installer quality are acceptable
 2. Deye SUN-12K-SG05LP3-EU-SM2 + Pylontech, if the price difference is large and local integration is proven
+3. 1x Victron MultiPlus-II 48/15000/200-100 + Pylontech, only if a strong single-phase backup design is intentional
 
 This is a reliability / openness / maintainability decision, not a brand-prestige decision.
 
