@@ -33,6 +33,7 @@ Best architectural fit for this project if budget and installer competence allow
 ### Why It Fits
 
 - Victron officially documents Pylontech compatibility.
+- The Pylontech Low Voltage ESS compatibility list Ver. 2.46 also lists Victron MultiPlus 48 V and Quattro 48 V via Venus OS.
 - Pylontech US5000 / US5000B are listed in Victron's Pylontech compatibility documentation.
 - Victron supports ESS, grid backup and off-grid style designs.
 - GX devices expose local MQTT and Modbus TCP.
@@ -71,6 +72,7 @@ Potentially very good price/performance, but must be validated at exact model an
 ### Why It Fits
 
 - Deye hybrid inverters advertise support for lithium batteries and multiple communication interfaces including RS485/RS232/CAN.
+- The Pylontech Low Voltage ESS compatibility list Ver. 2.46 lists Deye/Sunsynk SUN-SG01LP1, SUN-SG03LP1, SUN-SG04LP1, SUN-SG04LP3, SUN-SG05LP3 and SUN-OG02LP1 series.
 - Deye low-voltage hybrid models can fit 48 V battery ecosystems.
 - Deye offers built-in hybrid behavior, backup/UPS-style functionality and time-period based charge/discharge configuration.
 - Pylontech can be attractive here because it keeps battery cost down.
@@ -141,6 +143,8 @@ Not recommended as a direct hybrid battery pairing at this stage.
 ### Why
 
 The official Fronius compatible battery information for GEN24 / GEN24 Plus points to Fronius Reserva / Reserva Pro, BYD Battery-Box and LG Flex families, depending on inverter model and country certification. Pylontech is not listed in the current Fronius compatible battery overview checked for this project.
+
+The user-provided Pylontech Low Voltage ESS compatibility list Ver. 2.46, last updated 2026-07-07, also lists many inverter brands including Victron and Deye/Sunsynk, but Fronius was not found in the extracted list.
 
 That means a direct design like this should be treated as unsupported unless proven otherwise:
 
@@ -287,6 +291,7 @@ Next step:
 
 ## Sources
 
+- User-provided PDF: Compatibility List of Pylontech Low Voltage ESS and Inverters Ver. 2.46, last update 2026-07-07
 - Victron + Pylontech compatibility: https://www.victronenergy.com/live/battery_compatibility:pylontech_phantom
 - Victron GX Modbus TCP manual: https://www.victronenergy.com/live/ccgx:modbustcp_faq
 - Home Assistant Victron GX integration: https://www.home-assistant.io/integrations/victron_gx/
