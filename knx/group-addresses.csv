@@ -1,0 +1,12 @@
+main,middle,sub,address,name,dpt,layer,status,notes
+0,0,0,0/0/0,Central - All off,1.001,K,planned,
+0,0,1,0/0/1,Central - Away mode,1.001,K,planned,
+0,0,2,0/0/2,Central - Night mode,1.001,K,planned,
+1,0,0,1/0/0,Lighting - living room - main command,TBD,K,placeholder,Exact DALI groups after floor plan
+2,0,0,2/0/0,Blinds - living room - up down,1.008,K,placeholder,
+3,0,0,3/0/0,Heating - living room - setpoint,TBD,K,placeholder,
+4,0,0,4/0/0,Cooling - AC - enable,TBD,K+H,placeholder,
+5,0,0,5/0/0,Ventilation - boost,TBD,K+H,placeholder,
+6,0,0,6/0/0,Scenes - TV,TBD,K,placeholder,
+7,0,0,7/0/0,Alarm - intrusion,TBD,K+H,placeholder,
+8,0,0,8/0/0,Energy - PV current power,TBD,H,placeholder,
