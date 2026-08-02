@@ -1,16 +1,18 @@
 # Inverter Ecosystem Comparison
 
-## Working Recommendation
+## Accepted Recommendation
 
-For this house, the current ranking is:
+For this house, the accepted direction is:
 
-1. Victron + Pylontech
-2. Deye/Sunsynk-type hybrid inverter + Pylontech
-3. Fronius + BYD
+```text
+3x Victron MultiPlus-II 48/5000/70-50
+1x Cerbo GX Mk2
+minimum 3x Pylontech US5000 at start
+target expansion to approximately 5-6x US5000
+dedicated critical-load backup board
+```
 
-Direct Fronius + Pylontech is currently not recommended as a primary option unless a supplier can prove official compatibility for the exact Fronius inverter and exact Pylontech battery model.
-
-This is not a quality ranking. It is a fit-for-this-project ranking.
+This is not a brand-prestige decision. It is a fit-for-this-project decision.
 
 The project values:
 
@@ -28,12 +30,12 @@ The project values:
 
 ### Fit
 
-Best architectural fit for this project if budget and installer competence allow it.
+Accepted architectural fit for this project, assuming competent design and installation.
 
 ### Why It Fits
 
 - Victron officially documents Pylontech compatibility.
-- The Pylontech Low Voltage ESS compatibility list Ver. 2.46 also lists Victron MultiPlus 48 V and Quattro 48 V via Venus OS.
+- The user-provided Pylontech Low Voltage ESS compatibility list Ver. 2.46 also lists Victron MultiPlus 48 V and Quattro 48 V via Venus OS.
 - Pylontech US5000 / US5000B are listed in Victron's Pylontech compatibility documentation.
 - Victron supports ESS, grid backup and off-grid style designs.
 - GX devices expose local MQTT and Modbus TCP.
@@ -50,13 +52,13 @@ Best architectural fit for this project if budget and installer competence allow
 - can be built very robustly
 - good observability and diagnostics
 - flexible backup architecture
+- natural three-phase design with 3x MultiPlus-II
 
 ### Weaknesses
 
 - higher design complexity
 - more individual components
 - needs a very competent installer
-- can become expensive if built as a full 3-phase high-power system
 - 48 V battery systems require careful DC design and enough battery modules
 
 ### Key Design Watch Point
@@ -67,30 +69,26 @@ Do not undersize the Pylontech bank. Battery current limits matter. A powerful i
 
 ### Fit
 
-Potentially very good price/performance, but must be validated at exact model and supplier level.
+Price/performance fallback. Keep it only if the installed Victron price becomes unreasonable.
 
 ### Why It Fits
 
-- Deye hybrid inverters advertise support for lithium batteries and multiple communication interfaces including RS485/RS232/CAN.
+- Deye/Sunsynk low-voltage hybrid models can fit 48 V battery ecosystems.
 - The Pylontech Low Voltage ESS compatibility list Ver. 2.46 lists Deye/Sunsynk SUN-SG01LP1, SUN-SG03LP1, SUN-SG04LP1, SUN-SG04LP3, SUN-SG05LP3 and SUN-OG02LP1 series.
-- Deye low-voltage hybrid models can fit 48 V battery ecosystems.
-- Deye offers built-in hybrid behavior, backup/UPS-style functionality and time-period based charge/discharge configuration.
-- Pylontech can be attractive here because it keeps battery cost down.
+- Deye/Sunsynk can offer compact all-in-one hybrid behavior.
+- Pylontech keeps battery cost attractive.
 
 ### Strengths
 
 - usually lower system cost than Victron
 - compact all-in-one hybrid inverter
-- good feature set on paper
 - useful backup/load output features
-- often popular with Pylontech-style 48 V batteries
 - simpler bill of materials than Victron
 
 ### Weaknesses
 
 - integration quality depends heavily on exact model, firmware and data logger
 - Home Assistant support is usually less clean than Victron/Fronius
-- often relies on Modbus, Solarman/Sunsynk-style integrations, SolarAssistant or community tooling
 - local write/control support must be verified before purchase
 - supplier and installer quality matter a lot
 - official battery compatibility list must be checked for exact inverter model
@@ -103,7 +101,7 @@ Do not accept a generic claim like "supports Pylontech". Require the exact inver
 
 ### Fit
 
-Technically strong and premium, but probably not the best price/performance fit unless the complete supplier offer is excellent.
+Premium benchmark. Not selected because BYD batteries appear significantly more expensive and the added value does not currently justify the price difference for this project.
 
 ### Why It Fits
 
@@ -119,26 +117,20 @@ Technically strong and premium, but probably not the best price/performance fit 
 - good market reputation
 - good Home Assistant monitoring
 - Solar API is local and well documented
-- Modbus TCP exists for deeper integration/control
 - high-voltage BYD architecture can be elegant and compact
 
 ### Weaknesses
 
 - BYD battery cost is significantly higher in many offers
-- Home Assistant Solar API integration is read-oriented; control requires Modbus work
 - less open/flexible than Victron for custom EMS
 - backup functionality has specific Fronius constraints and hardware requirements
 - may be overpaying if the premium ecosystem does not solve a real project need
-
-### Key Design Watch Point
-
-Fronius + BYD should be kept as premium benchmark. Choose it only if the total installed offer, warranty, service and backup behavior justify the price premium.
 
 ## Rejected / High-Risk Option: Fronius + Pylontech Direct Hybrid
 
 ### Fit
 
-Not recommended as a direct hybrid battery pairing at this stage.
+Not recommended as a direct hybrid battery pairing.
 
 ### Why
 
@@ -154,21 +146,6 @@ Fronius GEN24 Plus
     +-- Pylontech battery on the inverter battery port
 ```
 
-### Why It Is Tempting
-
-- Fronius has a good reputation and good Home Assistant monitoring.
-- Pylontech has attractive price per kWh.
-- Combining both sounds like a way to get Fronius quality with cheaper storage.
-
-### Why It Is Risky
-
-- battery communication may not work reliably
-- firmware updates can break unofficial combinations
-- installer support may be weak
-- warranty responsibility becomes unclear
-- backup behavior may not be certified
-- BMS limits may not be correctly respected
-
 ### Accept Only If
 
 A supplier provides written confirmation for:
@@ -181,7 +158,7 @@ A supplier provides written confirmation for:
 - backup behavior during grid outage
 - local integration path for Home Assistant / EMS
 
-Without that, this option should be rejected.
+Without that, this option should remain rejected.
 
 ## Alternative: Fronius PV + Victron/Pylontech AC-Coupled Storage
 
@@ -203,13 +180,7 @@ This is not the same as "Fronius hybrid + Pylontech". It is an AC-coupled archit
 
 It can be technically strong because Victron documents AC-coupled PV with Fronius PV inverters and also documents Pylontech battery compatibility. However, it is more complex and should only be designed by an installer who understands Victron ESS / backup systems well.
 
-For this house, it could make sense only if:
-
-- there is a strong reason to use Fronius PV inverters
-- Victron is still used as the storage / backup / EMS layer
-- the additional complexity and cost are justified
-
-Otherwise, a cleaner Victron + Pylontech design is probably better.
+For this house, use it only if there is a strong reason to use Fronius PV inverters. Otherwise, a cleaner Victron + Pylontech design is better.
 
 ## Comparative Summary
 
@@ -218,45 +189,13 @@ Otherwise, a cleaner Victron + Pylontech design is probably better.
 | Openness | Excellent | Medium to good, model-dependent | Good for monitoring, less open for control | Poor / unsupported unless proven |
 | Home Assistant fit | Excellent | Medium, often community/SolarAssistant | Good for monitoring | Unclear |
 | Local control | Excellent | Must verify | Possible via Modbus, more constrained | Unclear |
-| Price/performance | Medium | Potentially excellent | Usually weaker | Tempting on paper, risky in practice |
+| Price/performance | Good for this project | Potentially excellent | Usually weaker | Tempting on paper, risky in practice |
 | Installation simplicity | Medium/complex | Good | Good | Risky if unofficial |
 | Advanced EMS / AI | Excellent | Good if Modbus/control works | Medium | Unclear |
 | Battery cost | Good with Pylontech | Good with Pylontech | Higher with BYD | Good battery cost, but compatibility risk |
 | Official compatibility clarity | Strong | Must verify per model | Strong | Not found in Fronius list |
 | Backup flexibility | Excellent | Good, model-dependent | Good but constrained | Unclear / not recommended |
 | Long-term tinkering | Excellent | Medium/good | Medium | Poor if unsupported |
-
-## Current Shortlist
-
-### Primary Direction
-
-Victron + Pylontech.
-
-Use this as the architectural target unless the price becomes unreasonable.
-
-### Budget / Price-Performance Challenger
-
-Deye/Sunsynk-type hybrid inverter + Pylontech.
-
-Keep only if exact model has:
-
-- official Pylontech compatibility
-- local Modbus or other local control path
-- good Slovak/Czech installer support
-- clear backup behavior
-- documented warranty compatibility
-
-### Premium Benchmark
-
-Fronius + BYD.
-
-Use for comparison against a well-supported premium offer. Do not choose it just because it is premium.
-
-### Do Not Shortlist Without Proof
-
-Fronius + Pylontech as a direct hybrid pairing.
-
-Keep it out of the shortlist unless a supplier provides written proof of official compatibility for the exact models.
 
 ## Questions For Installers
 
@@ -279,15 +218,17 @@ Ask every supplier:
 15. What is the guaranteed battery throughput or remaining capacity?
 16. Who provides local service and replacement?
 
-## Current Decision
+## Remaining Design Work
 
-Do not select the final FVE ecosystem yet.
+The ecosystem is selected, but the detailed PV and backup design still remains open.
 
-Next step:
+Next steps:
 
-- collect rough installed prices for all three archetypes
 - estimate critical backup load energy for 24 h
-- decide whether backup should be single-phase critical-load backup or more ambitious three-phase backup
+- finalize exact critical-load circuits
+- decide whether PV will be DC-coupled through Victron MPPT chargers, AC-coupled through a PV inverter, or mixed
+- validate the exact supplier design against Victron and Pylontech documentation
+- check installed price and local service quality
 
 ## Sources
 
@@ -297,7 +238,6 @@ Next step:
 - Home Assistant Victron GX integration: https://www.home-assistant.io/integrations/victron_gx/
 - Home Assistant Modbus integration: https://www.home-assistant.io/integrations/modbus
 - Fronius battery compatibility overview: https://www.fronius.com/en-gb/uk/solar-energy/installers-partners/technical-data/all-products/storage-units/battery-overview/battery-overview
-- Fronius GEN24 product guide: https://www.fronius.com/en-gb/uk/solar-energy/installers-partners/service-support/tech-support/how-to-install/installation-guide-gen24
 - Fronius Solar API: https://www.fronius.com/en-us/usa/solar-energy/installers-partners/technical-data/all-products/system-monitoring/open-interfaces/fronius-solar-api-json-
 - Home Assistant Fronius integration: https://www.home-assistant.io/integrations/fronius/
 - Deye hybrid inverter category: https://deye.com/product-category/inverter/hybrid-inverter/
