@@ -40,26 +40,36 @@ Relevant files:
 
 ### 3. Research PV + Battery Ecosystems
 
-Status: open
+Status: decided
 
-Compare ecosystems, not only batteries.
+Decision:
 
-Candidates:
+```text
+3x Victron MultiPlus-II 48/5000/70-50
+1x Cerbo GX Mk2
+minimum 3x Pylontech US5000 at start
+target expansion to approximately 5-6x US5000
+dedicated critical-load backup board
+```
 
-- Victron + Pylontech
-- Deye or similar hybrid inverter + Pylontech
-- Fronius + BYD as higher-cost benchmark
-- other locally supported hybrid systems with good Modbus/Home Assistant support
+Fallback / benchmark options:
 
-Questions to answer:
+- Deye or similar hybrid inverter + Pylontech as price/performance fallback
+- Fronius + BYD as higher-cost premium benchmark
+- other locally supported hybrid systems only if they beat the accepted direction on openness, service, backup and price
 
-- Does it support local Modbus TCP/RTU or MQTT?
-- Can Home Assistant read PV, grid, battery and inverter state locally?
-- Can charging/discharging be controlled or limited locally?
-- Is backup output suitable for selected critical loads?
-- What is the official battery compatibility list?
-- What are warranty limits in cycles/MWh and remaining capacity?
-- How good is local service?
+Remaining questions:
+
+- Should PV be DC-coupled through Victron MPPT chargers, AC-coupled through a PV inverter, or mixed?
+- Can PV keep charging the battery during grid outage?
+- What is the exact critical-load list and expected 24 h energy budget?
+- What are the exact supplier warranty and service terms?
+
+Relevant files:
+
+- `energy/strategy.md`
+- `energy/fve-model-shortlist.md`
+- `docs/decisions/ADR-005-victron-pylontech-three-phase-ess.md`
 
 ### 4. Define Backup Circuit Philosophy
 
@@ -88,7 +98,7 @@ Open:
 - exact critical-load list
 - expected standby consumption
 - target usable battery capacity
-- backup inverter output requirements
+- detailed backup board layout
 
 Relevant file:
 
@@ -201,8 +211,8 @@ Do not finalize these yet:
 
 ### Week 1
 
-- Research PV/battery ecosystems.
-- Define backup circuit target and rough energy budget.
+- Estimate critical backup load energy for 24 h.
+- Define backup board circuit target.
 - Define wallbox requirements.
 
 ### Week 2
