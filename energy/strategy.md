@@ -36,12 +36,22 @@ Backup should not include by default:
 
 ## Battery Direction
 
-Pylontech remains a preferred candidate because of price/performance and modularity. Final selection depends on inverter compatibility, local integration, warranty terms and Slovak/Czech service availability.
+Pylontech is the accepted battery direction because of price/performance, modularity and compatibility with the selected Victron ESS architecture.
 
-Candidate ecosystems to evaluate later:
+Accepted ESS direction:
 
-- Victron + Pylontech
-- compatible hybrid inverter + Pylontech
-- Fronius + BYD as a higher-cost benchmark
+```text
+3x Victron MultiPlus-II 48/5000/70-50
+1x Cerbo GX Mk2
+minimum 3x Pylontech US5000 at start
+target expansion to approximately 5-6x US5000
+dedicated critical-load backup board
+```
 
-Do not select the battery before selecting the full inverter + battery + backup + EMS ecosystem.
+The battery must still be validated in the final supplier design against exact Pylontech model, Victron compatibility guidance, current limits, protection design, warranty terms and local service availability.
+
+## Fallback Ecosystems
+
+Deye / Sunsynk + Pylontech remains the price/performance fallback if the Victron system becomes financially unreasonable.
+
+Fronius + BYD remains a premium benchmark, but is not the selected direction because the current price difference for BYD batteries does not appear justified for this project.
