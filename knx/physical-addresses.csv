@@ -1,0 +1,11 @@
+address,device,location,status,notes
+1.1.1,MDT SCN-IP100.03,Distribution board,planned,KNX IP Router Secure
+1.1.2,MDT STC-0960.01,Distribution board,planned,KNX power supply diagnostics if exposed
+1.1.10,MDT AKS-2016.03,Distribution board,planned,Non-DALI switching and auxiliary outputs
+1.1.20,MDT SCN-DA641P.04S,Distribution board,planned,DALI gateway
+1.1.30,MDT JAL-0810.02,Distribution board,planned,External blinds
+1.1.40,MDT AKS-1216.03,Distribution board,planned,Heating contactor outputs
+1.1.50,MDT BE-16000.02,Distribution board,planned,Binary inputs
+1.1.60,MDT SCN-LOG1.02,Distribution board,planned,Local logic
+1.1.70,Weather station,Exterior,planned,Exact model TBD
+1.1.100,Button - entrance,TBD,placeholder,Exact rooms after floor plan
