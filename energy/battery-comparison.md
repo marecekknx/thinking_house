@@ -2,9 +2,9 @@
 
 ## Current Working Conclusion
 
-Pylontech is a legitimate preferred direction for this project if the selected inverter/EMS ecosystem supports it officially and locally. BYD should not be chosen only because it is more expensive or assumed to last longer.
+Pylontech is the accepted battery direction for this project with the selected Victron three-phase ESS architecture. BYD should not be chosen only because it is more expensive or assumed to last longer.
 
-The decision should be made at ecosystem level:
+The decision was made at ecosystem level:
 
 ```text
 inverter + battery + backup output + local API + service + warranty
@@ -62,15 +62,18 @@ Choose Pylontech if:
 - local data/control integration is good
 - the price difference can be used for more capacity or better infrastructure
 
-## Current Bias For This House
+## Current Decision For This House
 
-The current project direction favors Pylontech, probably with a more open inverter/EMS ecosystem, unless later research proves that BYD gives a clear system-level advantage.
+The current project decision is Pylontech with Victron:
 
-Most likely candidates to compare next:
+```text
+3x Victron MultiPlus-II 48/5000/70-50
+1x Cerbo GX Mk2
+minimum 3x Pylontech US5000
+target expansion to approximately 5-6x US5000
+```
 
-- Victron + Pylontech
-- Deye or similar hybrid inverter + Pylontech
-- Fronius + BYD as the premium benchmark
+Deye / Sunsynk + Pylontech remains the price/performance fallback. Fronius + BYD remains the premium benchmark.
 
 ## Sources To Track
 
