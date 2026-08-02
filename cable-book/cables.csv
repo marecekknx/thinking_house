@@ -1,0 +1,7 @@
+id,source,destination,type,purpose,status,notes
+KNX-001,Technical room,Main KNX line,KNX TP,Backbone,planned,Exact routing after floor plan
+DALI-001,Technical room,Main DALI lighting line,DALI + 230 V,Main dimmable lighting,planned,Exact branches after lighting plan
+LAN-001,Technical room,Future garage,Ethernet,Wallbox/garage/network,planned,Prepare before second phase
+KNX-002,Technical room,Future garage,KNX TP,Garage sensors/buttons/logic,planned,Prepare before second phase
+LAN-002,Technical room,PV inverter area,Ethernet,FVE local integration,planned,Required for HA/EMS
+LAN-003,Technical room,Heat recovery ventilation,Ethernet or Modbus,HVAC integration,planned,Protocol depends on unit
