@@ -11,6 +11,7 @@ This shortlist is for a 150 m2 passive-standard bungalow with:
 - spot-price optimization
 - 24 h backup for critical loads, excluding electric floor heating
 - preference for Pylontech if the ecosystem supports it well
+- initial battery plan: minimum 3x Pylontech US5000, with future expansion
 
 ## Preferred Victron Direction
 
@@ -53,6 +54,25 @@ For a European three-phase house, 3x MultiPlus-II 48/5000 is usually a more natu
 - lower per-unit DC current stress
 - easier staged thinking around critical loads
 
+### Battery Baseline: 3x Pylontech US5000
+
+The initial battery plan is at least:
+
+```text
+3x Pylontech US5000
+```
+
+This equals:
+
+- 14.4 kWh nominal capacity
+- about 13.68 kWh usable capacity
+- 240 A recommended combined charge/discharge current
+- 300 A maximum continuous combined charge/discharge current, subject to temperature and BMS limits
+
+This is a much better starting point than a small battery bank. It is enough for a serious critical-load backup design and can support larger inverter options if current limits are configured sensibly.
+
+However, it is still not a battery bank I would abuse with a 15 kVA inverter at full output for long periods. For long-term battery life, the design should respect the recommended current, not just the absolute maximum.
+
 ### When 1x MultiPlus-II 48/15000/200-100 Makes Sense
 
 The MultiPlus-II 48/15000/200-100 becomes interesting if:
@@ -62,6 +82,7 @@ The MultiPlus-II 48/15000/200-100 becomes interesting if:
 - a large AC-coupled PV inverter must be placed on the backed-up AC output
 - the battery bank is sized large enough for the current demand
 - the installer confirms grid-code and distribution-board implications
+- charge/discharge limits are configured conservatively until the battery bank is expanded beyond 3x US5000
 
 It is not wrong, but it is a heavier and more demanding design.
 
@@ -71,7 +92,7 @@ According to Victron's technical specifications, the 48/15000 class provides 15 
 
 The 48/15000 option should not be combined with a small Pylontech bank.
 
-For this project, if using 48/15000, treat approximately 5x Pylontech US5000-class modules as the practical starting point, and validate the exact number against:
+For this project, if using 48/15000, 3x US5000 can be a starting point only with sensible current limits. Treat approximately 5x Pylontech US5000-class modules as the more comfortable target for this inverter class, and validate the exact number against:
 
 - Pylontech datasheet current limits
 - Victron Pylontech minimum sizing guidance
@@ -80,7 +101,7 @@ For this project, if using 48/15000, treat approximately 5x Pylontech US5000-cla
 - maximum discharge current
 - desired battery lifetime
 
-If the initial battery target is only 15-20 kWh, the 48/15000 is likely oversized unless backed-up peak power is a real requirement.
+With 3x US5000, the 48/15000 should be seen as an oversized-but-expandable inverter choice. That can be acceptable if the roadmap clearly includes more battery modules.
 
 ### Smaller Critical-Load Backup Variant
 
@@ -208,7 +229,8 @@ Possible but more demanding:
 ```text
 1x Victron MultiPlus-II 48/15000/200-100
 Cerbo GX Mk2
-larger Pylontech US5000 / US5000B battery bank
+minimum 3x Pylontech US5000 / US5000B at start
+target 5x or more Pylontech US5000 / US5000B over time
 single-phase high-power backup design
 ```
 
@@ -231,7 +253,7 @@ My current project-specific preference:
 
 1. 3x Victron MultiPlus-II 48/5000/70-50 + Pylontech, if budget and installer quality are acceptable
 2. Deye SUN-12K-SG05LP3-EU-SM2 + Pylontech, if the price difference is large and local integration is proven
-3. 1x Victron MultiPlus-II 48/15000/200-100 + Pylontech, only if a strong single-phase backup design is intentional
+3. 1x Victron MultiPlus-II 48/15000/200-100 + 3x Pylontech US5000 at start, only if a strong single-phase backup design is intentional and battery expansion is planned
 
 This is a reliability / openness / maintainability decision, not a brand-prestige decision.
 
