@@ -42,6 +42,9 @@
 - Spot-price-based buy/sell optimization is planned.
 - AI optimization may start in the cloud, but fixed limits must remain local.
 - Basic backup operation for about 24 h should be possible without electric heating.
+- Accepted ESS direction: 3x Victron MultiPlus-II 48/5000/70-50 + Cerbo GX Mk2 + Pylontech US5000 battery bank.
+- Initial battery plan: minimum 3x Pylontech US5000, with future expansion toward approximately 5-6 modules.
+- Backup will be implemented through a dedicated critical-load sub-distribution board, not by backing up the whole house.
 
 ## Future Stages
 
