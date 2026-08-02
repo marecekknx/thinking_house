@@ -24,7 +24,8 @@ In practice:
 - Heating: electric floor heating
 - Cooling: backup air conditioning, likely 1 outdoor unit and max. 2 indoor units
 - Ventilation: heat recovery ventilation, integration to be selected
-- Energy: PV + battery + future AI energy management
+- Energy: Victron three-phase ESS + Pylontech battery bank + future AI energy management
+- Accepted ESS direction: 3x Victron MultiPlus-II 48/5000/70-50 + Cerbo GX Mk2 + min. 3x Pylontech US5000
 - Backup target: 24 h basic house operation without electric heating
 - Future stages: garage, covered terrace, EV charging, borehole, garden irrigation, pool
 
