@@ -8,6 +8,8 @@ For this house, the current ranking is:
 2. Deye/Sunsynk-type hybrid inverter + Pylontech
 3. Fronius + BYD
 
+Direct Fronius + Pylontech is currently not recommended as a primary option unless a supplier can prove official compatibility for the exact Fronius inverter and exact Pylontech battery model.
+
 This is not a quality ranking. It is a fit-for-this-project ranking.
 
 The project values:
@@ -130,20 +132,95 @@ Technically strong and premium, but probably not the best price/performance fit 
 
 Fronius + BYD should be kept as premium benchmark. Choose it only if the total installed offer, warranty, service and backup behavior justify the price premium.
 
+## Rejected / High-Risk Option: Fronius + Pylontech Direct Hybrid
+
+### Fit
+
+Not recommended as a direct hybrid battery pairing at this stage.
+
+### Why
+
+The official Fronius compatible battery information for GEN24 / GEN24 Plus points to Fronius Reserva / Reserva Pro, BYD Battery-Box and LG Flex families, depending on inverter model and country certification. Pylontech is not listed in the current Fronius compatible battery overview checked for this project.
+
+That means a direct design like this should be treated as unsupported unless proven otherwise:
+
+```text
+Fronius GEN24 Plus
+    |
+    +-- Pylontech battery on the inverter battery port
+```
+
+### Why It Is Tempting
+
+- Fronius has a good reputation and good Home Assistant monitoring.
+- Pylontech has attractive price per kWh.
+- Combining both sounds like a way to get Fronius quality with cheaper storage.
+
+### Why It Is Risky
+
+- battery communication may not work reliably
+- firmware updates can break unofficial combinations
+- installer support may be weak
+- warranty responsibility becomes unclear
+- backup behavior may not be certified
+- BMS limits may not be correctly respected
+
+### Accept Only If
+
+A supplier provides written confirmation for:
+
+- exact Fronius inverter model
+- exact Pylontech battery model
+- official compatibility source
+- supported BMS communication method
+- warranty coverage for the pairing
+- backup behavior during grid outage
+- local integration path for Home Assistant / EMS
+
+Without that, this option should be rejected.
+
+## Alternative: Fronius PV + Victron/Pylontech AC-Coupled Storage
+
+There is a different architecture where Fronius is used as a PV inverter and Victron + Pylontech handles storage and backup:
+
+```text
+PV panels
+    |
+Fronius PV inverter
+    |
+AC bus
+    |
+Victron inverter/charger + GX
+    |
+Pylontech battery
+```
+
+This is not the same as "Fronius hybrid + Pylontech". It is an AC-coupled architecture.
+
+It can be technically strong because Victron documents AC-coupled PV with Fronius PV inverters and also documents Pylontech battery compatibility. However, it is more complex and should only be designed by an installer who understands Victron ESS / backup systems well.
+
+For this house, it could make sense only if:
+
+- there is a strong reason to use Fronius PV inverters
+- Victron is still used as the storage / backup / EMS layer
+- the additional complexity and cost are justified
+
+Otherwise, a cleaner Victron + Pylontech design is probably better.
+
 ## Comparative Summary
 
-| Criterion | Victron + Pylontech | Deye/Sunsynk-Type + Pylontech | Fronius + BYD |
-|---|---|---|---|
-| Openness | Excellent | Medium to good, model-dependent | Good for monitoring, less open for control |
-| Home Assistant fit | Excellent | Medium, often community/SolarAssistant | Good for monitoring |
-| Local control | Excellent | Must verify | Possible via Modbus, more constrained |
-| Price/performance | Medium | Potentially excellent | Usually weaker |
-| Installation simplicity | Medium/complex | Good | Good |
-| Advanced EMS / AI | Excellent | Good if Modbus/control works | Medium |
-| Battery cost | Good with Pylontech | Good with Pylontech | Higher with BYD |
-| Official compatibility clarity | Strong | Must verify per model | Strong |
-| Backup flexibility | Excellent | Good, model-dependent | Good but constrained |
-| Long-term tinkering | Excellent | Medium/good | Medium |
+| Criterion | Victron + Pylontech | Deye/Sunsynk-Type + Pylontech | Fronius + BYD | Fronius + Pylontech Direct |
+|---|---|---|---|---|
+| Openness | Excellent | Medium to good, model-dependent | Good for monitoring, less open for control | Poor / unsupported unless proven |
+| Home Assistant fit | Excellent | Medium, often community/SolarAssistant | Good for monitoring | Unclear |
+| Local control | Excellent | Must verify | Possible via Modbus, more constrained | Unclear |
+| Price/performance | Medium | Potentially excellent | Usually weaker | Tempting on paper, risky in practice |
+| Installation simplicity | Medium/complex | Good | Good | Risky if unofficial |
+| Advanced EMS / AI | Excellent | Good if Modbus/control works | Medium | Unclear |
+| Battery cost | Good with Pylontech | Good with Pylontech | Higher with BYD | Good battery cost, but compatibility risk |
+| Official compatibility clarity | Strong | Must verify per model | Strong | Not found in Fronius list |
+| Backup flexibility | Excellent | Good, model-dependent | Good but constrained | Unclear / not recommended |
+| Long-term tinkering | Excellent | Medium/good | Medium | Poor if unsupported |
 
 ## Current Shortlist
 
@@ -170,6 +247,12 @@ Keep only if exact model has:
 Fronius + BYD.
 
 Use for comparison against a well-supported premium offer. Do not choose it just because it is premium.
+
+### Do Not Shortlist Without Proof
+
+Fronius + Pylontech as a direct hybrid pairing.
+
+Keep it out of the shortlist unless a supplier provides written proof of official compatibility for the exact models.
 
 ## Questions For Installers
 
@@ -213,3 +296,5 @@ Next step:
 - Fronius Solar API: https://www.fronius.com/en-us/usa/solar-energy/installers-partners/technical-data/all-products/system-monitoring/open-interfaces/fronius-solar-api-json-
 - Home Assistant Fronius integration: https://www.home-assistant.io/integrations/fronius/
 - Deye hybrid inverter category: https://deye.com/product-category/inverter/hybrid-inverter/
+- Current Fronius compatible batteries overview: https://www.fronius.com/en/solar-energy/solar-solutions/solar-energy-storage/compatible-batteries
+- Victron AC-coupled PV with Fronius PV inverters: https://www.victronenergy.com/live/ac_coupling:fronius
