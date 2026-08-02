@@ -1,0 +1,7 @@
+id,name,room,driver_count,status,notes
+DALI-G01,Living room LED square,Living room,4,planned,Four sides as separate drivers grouped together
+DALI-G02,Dining table spots,Dining area,TBD,planned,Exact fixture count TBD
+DALI-G03,Kitchen worktop,Kitchen,TBD,placeholder,
+DALI-G04,Kitchen island,Kitchen,TBD,placeholder,
+DALI-G05,Bathroom night light,Bathroom 1,TBD,placeholder,
+DALI-G06,Bathroom night light,Bathroom 2,TBD,placeholder,
